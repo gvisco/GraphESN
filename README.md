@@ -19,6 +19,7 @@ In order to load a Progol dataset, ipython must be installed:
 - Launch the program
 - Use the binded ipython console to load the dataset (see `pl_parser` documentation).
   ```files = ['atom_bond.pl', 'logp.pl', 'lumo.pl', 'ind1.pl', 'inda.pl', 'log_mutag.pl']
-     dset = pl_parser.parse(*files)```
+     dset = pl_parser.parse(*files)
+     ```
 - Set the parsed data as the displayed dataset (variable: app.dataset):
   ```app.dataset = dset```
