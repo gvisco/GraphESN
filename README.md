@@ -1,5 +1,5 @@
 # GraphESN
-The repository contains the code I wrote for my master thesis "Constructive Reservoir Computing neural models Apr for structured domains" (available [here](https://etd.adm.unipi.it/t/etd-01232012-162826/) in italian). The thesis is about a new set of neural models that apply the reservoir computing approach to problems where the input data can be represented as a graph.
+The repository contains the code I wrote for my master thesis "Constructive Reservoir Computing neural models for structured domains" (available [here](https://etd.adm.unipi.it/t/etd-01232012-162826/) in italian). The thesis is about a new set of neural models that apply the reservoir computing approach to problems where the input data can be represented as a graph.
 
 ## Repository Content
 - `g_esn`: The source code package implementing the GraphESN and the Constructive-GraphESN models in Python 2.6.
