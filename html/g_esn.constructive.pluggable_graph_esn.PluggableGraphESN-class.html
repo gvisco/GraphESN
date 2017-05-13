@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>g_esn.constructive.pluggable_graph_esn.PluggableGraphESN</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="g_esn-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="g_esn-module.html">Package&nbsp;g_esn</a> ::
+        <a href="g_esn.constructive-module.html">Package&nbsp;constructive</a> ::
+        <a href="g_esn.constructive.pluggable_graph_esn-module.html">Module&nbsp;pluggable_graph_esn</a> ::
+        Class&nbsp;PluggableGraphESN
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PluggableGraphESN</h1><p class="nomargin-top"><span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+        object --+    
+                 |    
+<a href="g_esn.graph_esn.GraphESN-class.html">graph_esn.GraphESN</a> --+
+                     |
+                    <strong class="uidshort">PluggableGraphESN</strong>
+</pre>
+
+<dl><dt>Known Subclasses:</dt>
+<dd>
+      <ul class="subclass-list">
+<li><a href="g_esn.constructive.pluggable_phi_graph_esn.PluggablePhiGraphESN-class.html">pluggable_phi_graph_esn.PluggablePhiGraphESN</a></li>  </ul>
+</dd></dl>
+
+<hr />
+<pre class="literalblock">
+A single 'computational unit' in the constructive network.
+
+A PluggableGraphESN is a GraphESN accepting output feedbacks from other
+networks. New connections are allowed from other networks to the the
+reservoir or to the readout.
+
+Reservoir's output feedbacks have weights in a new matrix W_aux 
+shaped (Nr, Nz_res). Encoding process is modified in order to consider also
+output feedback values.
+
+Readout's output feedbacks are managed using the same W_out matrix, as in
+the standard GraphESN, reshaped as (Ny, Nr + Nz_ro + 1). Indeed these 
+output feedbacks are considered as additional features.
+    
+Methods:
+--------
+join_to_reservoir   --  Add new output feedbacks to the reservoir.
+join_to_readout     --  Add new output feedbacks to the readout.
+encode              --  Overrided encoding method, using output feedbacks.
+get_activations     --  Overrided get_activation method. 
+
+
+Attributes:
+-----------
+W_aux           --  Reservoir's output feedbacks weight matrix 
+                    (scipy.array (Nr, Nz_res)).
+Nz_res          --  Numeber of reservoir's output feedbacks.
+Nz_ro           --  Numeber of readout's output feedbacks.
+reservoir_sub   --  List of networks connected to the reservoir (list of
+                    PluggableGraphESN)
+readout_sub     --  List of networks connected to the readout (list of
+                    PluggableGraphESN)
+
+</pre>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">W_in</span>,
+        <span class="summary-sig-arg">W</span>,
+        <span class="summary-sig-arg">W_out</span>,
+        <span class="summary-sig-arg">mapping_fun</span>,
+        <span class="summary-sig-arg">output_act</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">epsilon</span>=<span class="summary-sig-default">1e-05</span>,
+        <span class="summary-sig-arg">maxit</span>=<span class="summary-sig-default">100</span>)</span><br />
+      Initialize new PluggableGraphESN with no output feedbacks.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html#join_to_readout" class="summary-sig-name">join_to_readout</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">gesn</span>,
+        <span class="summary-sig-arg">weights</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Add new subnetwork and use its output as an auxiliary input for
+the readout.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.join_to_readout">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html#join_to_reservoir" class="summary-sig-name">join_to_reservoir</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">gesn</span>,
+        <span class="summary-sig-arg">weights</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Add new subnetwork and use its output as an auxiliary input for
+the reservoir.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.join_to_reservoir">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html#encode" class="summary-sig-name">encode</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">graph</span>,
+        <span class="summary-sig-arg">input_label</span>)</span><br />
+      Override the GraphESN.encode method.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.encode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html#_compute_Wz" class="summary-sig-name" onclick="show_private();">_compute_Wz</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">graph</span>,
+        <span class="summary-sig-arg">input_label</span>)</span><br />
+      Compute ( W_sub z_sub(g) ) for given graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN._compute_Wz">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html#get_activations" class="summary-sig-name">get_activations</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">graph</span>,
+        <span class="summary-sig-arg">input_label</span>)</span><br />
+      Override the GraphESN.get_activations method by adding the capability
+      to deal with auxiliary inputs for the readout.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.get_activations">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="g_esn.graph_esn.GraphESN-class.html">graph_esn.GraphESN</a></code></b>:
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#check">check</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#evaluate">evaluate</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="g_esn.graph_esn.GraphESN-class.html">graph_esn.GraphESN</a></code></b> (private):
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#_add_bias" onclick="show_private();">_add_bias</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#_check_convergence" onclick="show_private();">_check_convergence</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#_clear_activation_cache" onclick="show_private();">_clear_activation_cache</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#_clear_encoding_cache" onclick="show_private();">_clear_encoding_cache</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#_clear_evaluation_cache" onclick="show_private();">_clear_evaluation_cache</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#_compute_Wu" onclick="show_private();">_compute_Wu</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#_compute_Wx" onclick="show_private();">_compute_Wx</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#_extract_key" onclick="show_private();">_extract_key</a></code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html#W_aux" class="summary-name">W_aux</a><br />
+      Reservoir's output feedbacks matrix.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html#Nz_res" class="summary-name">Nz_res</a><br />
+      Reservoir's output feedbacks size.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html#Nz_ro" class="summary-name">Nz_ro</a><br />
+      Readout's output feedbacks size.
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="g_esn.graph_esn.GraphESN-class.html">graph_esn.GraphESN</a></code></b>:
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#Nr">Nr</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#Nu">Nu</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#Ny">Ny</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#W">W</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#W_in">W_in</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#W_out">W_out</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#epsilon">epsilon</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#map_fun">map_fun</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#maxit">maxit</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#memo_act">memo_act</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#memo_enc">memo_enc</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#memo_eval">memo_eval</a></code>,
+      <code><a href="g_esn.graph_esn.GraphESN-class.html#out_act">out_act</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">W_in</span>,
+        <span class="sig-arg">W</span>,
+        <span class="sig-arg">W_out</span>,
+        <span class="sig-arg">mapping_fun</span>,
+        <span class="sig-arg">output_act</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">epsilon</span>=<span class="sig-default">1e-05</span>,
+        <span class="sig-arg">maxit</span>=<span class="sig-default">100</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Initialize new PluggableGraphESN with no output feedbacks.
+
+Arguments:
+W_in        --  Input-to-reservoir matrix. (scipy array (Nr,Nu+1))
+W           --  Reservoir-to-reservoir matrix (scipy.array (Nr,Nr))
+W_out       --  Reservoir-to-output matrix (scipy.array (Ny,Nr+1))
+mapping_fun --  State mapping function f:(Nr x |V(g)|) -&gt; Nr
+output_act  --  Output unit's activation function. See: g_esn.functions
+                (callable)
+epsilon     --  Reservoir convergence threshold (real).
+maxit       --  Reservoir maximum iteration number (int).
+
+See also: g_esn.graph_esn.GraphESN
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="join_to_readout"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">join_to_readout</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">gesn</span>,
+        <span class="sig-arg">weights</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.join_to_readout">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Add new subnetwork and use its output as an auxiliary input for
+the readout.
+
+Output weights matrix W_out will be modified by adding one column
+for each new input. Weights referring to bias term will be &quot;shifted&quot; to 
+the last column.
+
+    E.g. [W|bias] becomes [W|W_z|bias]
+
+Arguments:
+gesn    --  New subnetwork (GraphESN)
+weights --  New inputs weights (scipy.array (Ny, gesn.Ny))
+            [def: None, i.e. all weights 1.0]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="join_to_reservoir"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">join_to_reservoir</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">gesn</span>,
+        <span class="sig-arg">weights</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.join_to_reservoir">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Add new subnetwork and use its output as an auxiliary input for
+the reservoir.
+
+Reservoir auxiliary matrix W_aux will be modified by adding one column
+for each new input. 
+
+    E.g. [W] becomes [W|W_z]
+
+Arguments:
+gesn    --  New subnetwork (GraphESN)
+weights --  New inputs weights (scipy.array (Nr, gesn.Ny))
+            [def: None, i.e. all weights 1.0]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="encode"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">encode</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">graph</span>,
+        <span class="sig-arg">input_label</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.encode">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Override the GraphESN.encode method.
+
+New encode is performed considering also auxiliary reservoir inputs,
+possibly coming from other PluggableGraphESN.
+Encoding step il modified as following:
+
+x_t(v) = tanh( W_in u(v) + \sum_{w \in N(v)} W x_{t-1}(w) + W_aux z_aux(g) )
+
+It's worth mentioning that z_aux(g) is the concatenation of values all
+referring to the whole graph instead of the current vertex. This allows
+the local encoding process to exploit contextual informations.
+
+Arguments:
+graph       --  Input Graph.
+input_label --  Name of the attribute storing the input label.
+                Input label must be a scipy.array shaped (Nu,). (string)
+
+Return:
+Internal representation of the graph (scipy.array (|V(g)|,Nr)).        
+
+Exceptions:
+Raise an error if the encoding doesn't converge (i.e. after 'maxit'
+iterations).
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="g_esn.graph_esn.GraphESN-class.html#encode">graph_esn.GraphESN.encode</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_compute_Wz"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_compute_Wz</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">graph</span>,
+        <span class="sig-arg">input_label</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN._compute_Wz">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compute ( W_sub z_sub(g) ) for given graph.</p>
+  <p>Return: Result vector (Nr,)</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_activations"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_activations</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">graph</span>,
+        <span class="sig-arg">input_label</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.constructive.pluggable_graph_esn-pysrc.html#PluggableGraphESN.get_activations">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Override the GraphESN.get_activations method by adding the capability 
+  to deal with auxiliary inputs for the readout.</p>
+  <p>How it works:</p>
+  <ul>
+    <li>
+      Each auxiliary (readout) input is evaluated by calling the evaluate 
+      method on the subnetworks. Subnetworks ordering is preserved (i.e. 
+      first-joined first-evaluated)
+    </li>
+    <li>
+      Obtained auxiliary inputs, z_i, are concatenated into a single vector
+      (Nz_ro,).
+    </li>
+    <li>
+      Reservoir activations are evaluated normally, by calling the 'encode'
+      method and applying the state mapping functions
+    </li>
+    <li>
+      Reservoir activations and auxiliary inputs are joined into a single 
+      vector, shaped ((Nr + Nz_ro),).
+    </li>
+  </ul>
+  <p>Arguments: graph       --  Input graph (Graph) input_label --  Name of
+  the attribute storing the input label.</p>
+  <p>Return: Activations values, i.e. readout input. (scipy.array ((Nr + 
+  Nz_ro),)).</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="g_esn.graph_esn.GraphESN-class.html#get_activations">graph_esn.GraphESN.get_activations</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== PROPERTY DETAILS ==================== -->
+<a name="section-PropertyDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Property Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-PropertyDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="W_aux"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">W_aux</h3>
+  <p>Reservoir's output feedbacks matrix. (Nr, Nz_res)</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W_aux(<span class="summary-sig-arg">self</span>)</span>
+        - Reservoir's output feedbacks matrix.
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W_aux(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W_aux(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="Nz_res"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">Nz_res</h3>
+  <p>Reservoir's output feedbacks size.</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.Nz_res(<span class="summary-sig-arg">self</span>)</span>
+        - Reservoir's output feedbacks size.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="Nz_ro"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">Nz_ro</h3>
+  <p>Readout's output feedbacks size.</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.Nz_ro(<span class="summary-sig-arg">self</span>)</span>
+        - Readout's output feedbacks size.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="g_esn-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Mon Feb 27 12:53:23 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

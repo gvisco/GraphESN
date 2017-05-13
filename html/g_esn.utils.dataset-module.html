@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>g_esn.utils.dataset</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="g_esn-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="g_esn-module.html">Package&nbsp;g_esn</a> ::
+        <a href="g_esn.utils-module.html">Package&nbsp;utils</a> ::
+        Module&nbsp;dataset
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="g_esn.utils.dataset-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module dataset</h1><p class="nomargin-top"><span class="codelink"><a href="g_esn.utils.dataset-pysrc.html">source&nbsp;code</a></span></p>
+<p>Provide functions to manipulate and getinformations about datasets 
+  (lists of g_esn.Graph objects).</p>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.utils.dataset-module.html#filter_dataset" class="summary-sig-name">filter_dataset</a>(<span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">attnames</span>)</span><br />
+      Return new dataset obtained by removing from the dataset all graphs 
+      missing each attribute from given attribute list.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#filter_dataset">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.utils.dataset-module.html#purge_dataset" class="summary-sig-name">purge_dataset</a>(<span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">tasks</span>)</span><br />
+      Remove unusefull data from the dataset, e.g unlabelled data with respect 
+    to given list of tasks.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#purge_dataset">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.utils.dataset-module.html#get_attribute_values" class="summary-sig-name">get_attribute_values</a>(<span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">attribute</span>,
+        <span class="summary-sig-arg">vertex</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Scan the dataset and return the set of values taken by given attribute.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#get_attribute_values">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.utils.dataset-module.html#attributes_filter" class="summary-sig-name">attributes_filter</a>(<span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">attributes</span>)</span><br />
+      Filter a dataset by removing all graphs for wich all given attributes
+      are missing.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#attributes_filter">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.utils.dataset-module.html#file_filter" class="summary-sig-name">file_filter</a>(<span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">startindex</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Return a subset of the dataset by selecting only the indices
+read by input file (one index per row).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#file_filter">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.utils.dataset-module.html#count_by_attribute" class="summary-sig-name">count_by_attribute</a>(<span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      Count how many pattern in the dataset have a specific value for given
+      attribute (e.g.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#count_by_attribute">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.utils.dataset-module.html#max_degree" class="summary-sig-name">max_degree</a>(<span class="summary-sig-arg">dataset</span>)</span><br />
+      Return maximum in-degree and out-degree in the dataset.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#max_degree">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.utils.dataset-module.html#get_by_degree" class="summary-sig-name">get_by_degree</a>(<span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">deg</span>,
+        <span class="summary-sig-arg">degtype</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">outdeg</code><code class="variable-quote">'</code></span>)</span><br />
+      Return indices of graphs in the dataset having at least one vertex with
+given degree.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#get_by_degree">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'g_esn.utils'"><code class="variable-quote">'</code><code class="variable-string">g_esn.utils</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="filter_dataset"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">filter_dataset</span>(<span class="sig-arg">dataset</span>,
+        <span class="sig-arg">attnames</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#filter_dataset">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return new dataset obtained by removing from the dataset all graphs 
+  missing each attribute from given attribute list.</p>
+  <p>Arguments: dataset --  Dataset to filter (list of g_esn.graph.Graph). 
+  attname --  List of (graph) attributes labels (list of keywords).</p>
+  <p>Return: Filtered dataset (list of g_esn.graph.Graph).</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="purge_dataset"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">purge_dataset</span>(<span class="sig-arg">dataset</span>,
+        <span class="sig-arg">tasks</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#purge_dataset">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Remove unusefull data from the dataset, e.g unlabelled data with respect 
+    to given list of tasks.
+
+Arguments:
+dataset --  Dataset to purge (list of Graph).
+tasks   --  List of labels identifying a target for a task.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_attribute_values"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_attribute_values</span>(<span class="sig-arg">dataset</span>,
+        <span class="sig-arg">attribute</span>,
+        <span class="sig-arg">vertex</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#get_attribute_values">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Scan the dataset and return the set of values taken by given attribute.
+Returned set is an ordered list.
+Attribute can belong to the graph or to each vertex (see 'vertex' argument).
+
+All the graphs (or vertices if 'vertex==True') are assumed to have an
+attribute with given label.
+
+Arguments:
+dataset     --  List of graphs (list of g_esn.graph.Graph).
+attribute   --  Label of the attribute to check.
+vertex      --  If True then vertex attributes will be scanned, otherwise
+                graph attributes (boolean).
+
+Return:
+A list of sorted values (type depends of attribute's content).
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="attributes_filter"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">attributes_filter</span>(<span class="sig-arg">dataset</span>,
+        <span class="sig-arg">attributes</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#attributes_filter">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Filter a dataset by removing all graphs for wich all given attributes 
+  are missing.</p>
+  <p>Arguments: dataset     --  Dataset to filter (list of 
+  g_esn.graph.Graph). attributes  --  Attributes to check (list of object 
+  used as keywords).</p>
+  <p>Return: Filtered dataset (list of g_esn.graph.Graph).</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="file_filter"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">file_filter</span>(<span class="sig-arg">dataset</span>,
+        <span class="sig-arg">path</span>,
+        <span class="sig-arg">startindex</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#file_filter">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Return a subset of the dataset by selecting only the indices
+read by input file (one index per row).
+
+Arguments:
+dataset     --  Dataset to filter (list of Graphs).
+path        --  Path of the file containing the indices.
+startindex  --  Index numbering in the file, e.g. 1 to indicate the first 
+                graph.
+
+Return:
+Filtered dataset (list of Graph objects).
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="count_by_attribute"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">count_by_attribute</span>(<span class="sig-arg">dataset</span>,
+        <span class="sig-arg">label</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#count_by_attribute">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Count how many pattern in the dataset have a specific value for given 
+  attribute (e.g. the target).</p>
+  <p>Arguments: dataset --  Dataset to check (list of Graph objects). label
+  --  Attribute label to check (string). value   --  Value to be counted 
+  (object).</p>
+  <p>Return: The number of pattern with given value for the specified 
+  attribute (int).</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="max_degree"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">max_degree</span>(<span class="sig-arg">dataset</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#max_degree">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return maximum in-degree and out-degree in the dataset. Note that for 
+  undirected graphs in-degree = out-degree.</p>
+  <p>Arguments: dataset --  Input dataset (list of g_esn_graph_Graph).</p>
+  <p>Return: A couple (max-in-degree, max-out-degree) both integers.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_by_degree"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_by_degree</span>(<span class="sig-arg">dataset</span>,
+        <span class="sig-arg">deg</span>,
+        <span class="sig-arg">degtype</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">outdeg</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.utils.dataset-pysrc.html#get_by_degree">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Return indices of graphs in the dataset having at least one vertex with
+given degree.
+
+Arguments:
+dataset --  Input dataset (list of Graph)
+deg     --  Degree to search (integer)
+degtype --  Degree type: 'outdeg' or 'indeg' for searching out-degree or 
+            in-degree respectively. For undirected graphs both have the 
+            same result. (string)
+
+Return:
+A list of integers corresponding to indices in the dataset.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="g_esn-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Mon Feb 27 12:53:23 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

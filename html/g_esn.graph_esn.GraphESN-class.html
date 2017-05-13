@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>g_esn.graph_esn.GraphESN</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="g_esn-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="g_esn-module.html">Package&nbsp;g_esn</a> ::
+        <a href="g_esn.graph_esn-module.html">Module&nbsp;graph_esn</a> ::
+        Class&nbsp;GraphESN
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="g_esn.graph_esn.GraphESN-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class GraphESN</h1><p class="nomargin-top"><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">GraphESN</strong>
+</pre>
+
+<dl><dt>Known Subclasses:</dt>
+<dd>
+      <ul class="subclass-list">
+<li><a href="g_esn.phi_graph_esn.PhiGraphESN-class.html">phi_graph_esn.PhiGraphESN</a></li><li>, <a href="g_esn.constructive.pluggable_graph_esn.PluggableGraphESN-class.html">constructive.pluggable_graph_esn.PluggableGraphESN</a></li>  </ul>
+</dd></dl>
+
+<hr />
+<pre class="literalblock">
+Standard GraphESN implementation.
+
+A GraphESN performs following operations:
+
+    Input -&gt; Encoding -&gt; Mapping -&gt; Readout -&gt; Output Activation
+
+See details below.
+
+GraphESN can use memoization, avoiding the reprocessing of previously
+evaluated inputs.
+
+Attributes:
+-----------
+Nu      --  Input label dimension. (int)
+Nr      --  Reservoir size, i.e. number of units. (int)
+Ny      --  Output size. (int)
+W_in    --  Input-to-reservoir matrix (scipy.array (Nr,Nu+1))
+W       --  Reservoir-to-reservoir matrix (scipy.array (Nr,Nr))
+W_out   --  Reservoir-to-readout matrix (scipy.array (Ny,Nr+1))
+map_fun --  State mapping function: (|V(g)|,Nr) -&gt; (Nr,)
+out_act --  Output activation function: (Ny,) -&gt; (Ny,)
+epsilon --  Reservoir convergence threshold (float).
+maxit   --  Maximum number of iterations allowed for the reservoir (int).
+
+
+Main methods:
+-------------
+encode          --  Get the internal representation of a Graph.
+                    (list of scipy.array (Nr,))
+get_activations --  Get the reservoir activations after the state mapping
+                    function has been applied. (scipy.array (Nr,))
+evaluate        --  Get the output for an input graph. (scipy.array (Ny,))
+
+
+Memoizing:
+----------
+memo_enc    --  Save results for the 'encode' function (boolean).
+memo_act    --  Save results for the 'get_activations' function (boolean).
+memo_eval   --  Save results for the 'evaluate' function (boolean).
+
+All the values are True by default.
+
+----------------------------------------------------------------------------
+
+Input
+------------------------
+A (directed) Graph 'g = (V(g), E(g))'. Each vertex has an attached label
+(scipy.array) in its attributes.
+
+
+Input -&gt; Encoding 
+------------------------
+Input graph is encoded into a vector. Internal representation is
+
+    x(g) = scipy.array (Nr * |V(g)|,). 
+
+See method 'encode'.
+
+
+Encoding -&gt; Mapping
+------------------------
+Obtained encoding is mapped into a fixed length vector in order to
+achieve a size independent representation.
+A state mapping function, X : (Nr * |V(g)|,) -&gt; (Nr,) is applied 
+e.g. 'mean_state_mapping' and 'supersource_state_mapping'.
+See method 'get_activations'.
+
+
+Mapping -&gt; Readout
+------------------------
+Reservoir activations returned by the mapping function are sent to network's
+readout: a linear combination is computed. Weights are stored in the
+matrix W_out (scipy.array (Ny, (Nr + 1)))
+
+    net = W_out * X(x(g)), scipy.array (Ny,)
+
+
+Readout -&gt; Output Activation
+------------------------
+Linear combination result is used as input of the output activation 
+function, which is applied elementwise.
+
+    out = f(net) = f(W_out * X(x(g)))
+
+In order to train the network, the output activation function can be  
+assumed to be derivable (e.g. 'g_esn.functions.tanh'). Thus it's recommended
+to use an ActivationFunction object (see package g_esn.functions).
+Output activation is the actual output of the network.
+See method 'evaluate'.    
+
+</pre>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">W_in</span>,
+        <span class="summary-sig-arg">W</span>,
+        <span class="summary-sig-arg">W_out</span>,
+        <span class="summary-sig-arg">mapping_fun</span>,
+        <span class="summary-sig-arg">output_act</span>,
+        <span class="summary-sig-arg">epsilon</span>=<span class="summary-sig-default">1e-05</span>,
+        <span class="summary-sig-arg">maxit</span>=<span class="summary-sig-default">100</span>)</span><br />
+      Initialize new Graph-ESN.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#check" class="summary-sig-name">check</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Verify if internal matrices are well shaped.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.check">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_clear_encoding_cache"></a><span class="summary-sig-name">_clear_encoding_cache</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Clear encoding + activation + evaluation caches.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._clear_encoding_cache">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_clear_activation_cache"></a><span class="summary-sig-name">_clear_activation_cache</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Clear activation + evaluation caches.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._clear_activation_cache">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_clear_evaluation_cache"></a><span class="summary-sig-name">_clear_evaluation_cache</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Clear evaluation cache.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._clear_evaluation_cache">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#encode" class="summary-sig-name">encode</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">graph</span>,
+        <span class="summary-sig-arg">input_label</span>)</span><br />
+      Perform the encoding of given graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.encode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#_check_convergence" class="summary-sig-name" onclick="show_private();">_check_convergence</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">curr_x</span>,
+        <span class="summary-sig-arg">next_x</span>)</span><br />
+      Check if the encoding can be stopped.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._check_convergence">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#_compute_Wu" class="summary-sig-name" onclick="show_private();">_compute_Wu</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">graph</span>,
+        <span class="summary-sig-arg">input_label</span>)</span><br />
+      Compute ( W_in u(v) ) for each vertex 'v' in the graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._compute_Wu">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#_compute_Wx" class="summary-sig-name" onclick="show_private();">_compute_Wx</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">graph</span>,
+        <span class="summary-sig-arg">x</span>)</span><br />
+      Compute ( \sum_{w \in N(v)} \hat{W} x_{t-1}(w) ) for each vertex 'v' 
+      in the graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._compute_Wx">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#get_activations" class="summary-sig-name">get_activations</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">graph</span>,
+        <span class="summary-sig-arg">input_label</span>)</span><br />
+      Let given graph to run thru the reservoir and return computed 
+      activations.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.get_activations">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#evaluate" class="summary-sig-name">evaluate</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">graph</span>,
+        <span class="summary-sig-arg">input_label</span>)</span><br />
+      Apply the model to given graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.evaluate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#_add_bias" class="summary-sig-name" onclick="show_private();">_add_bias</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">v</span>,
+        <span class="summary-sig-arg">val</span>=<span class="summary-sig-default">1.0</span>)</span><br />
+      Concatenate a bias term to given vector.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._add_bias">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.graph_esn.GraphESN-class.html#_extract_key" class="summary-sig-name" onclick="show_private();">_extract_key</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Return a keyword identifying given parameters (both named or not).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._extract_key">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#W_in" class="summary-name">W_in</a><br />
+      Input to reservoir matrix.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#W" class="summary-name">W</a><br />
+      Reservoir to reservoir matrix.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#W_out" class="summary-name">W_out</a><br />
+      Reservoir to output matrix.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#map_fun" class="summary-name">map_fun</a><br />
+      State Mapping Function.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#out_act" class="summary-name">out_act</a><br />
+      Output Activation Function.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#epsilon" class="summary-name">epsilon</a><br />
+      Reservoir convergence threshold.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#maxit" class="summary-name">maxit</a><br />
+      Maximum reservoir iterations.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#memo_enc" class="summary-name">memo_enc</a><br />
+      Use of memoizing for the 'encode' function
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#memo_act" class="summary-name">memo_act</a><br />
+      Use of memoizing for the 'get_activations' function
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#memo_eval" class="summary-name">memo_eval</a><br />
+      Use of memoizing for the 'evaluate' function
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#Nu" class="summary-name">Nu</a><br />
+      Input size
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#Nr" class="summary-name">Nr</a><br />
+      Reservoir size
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="g_esn.graph_esn.GraphESN-class.html#Ny" class="summary-name">Ny</a><br />
+      Output size
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">W_in</span>,
+        <span class="sig-arg">W</span>,
+        <span class="sig-arg">W_out</span>,
+        <span class="sig-arg">mapping_fun</span>,
+        <span class="sig-arg">output_act</span>,
+        <span class="sig-arg">epsilon</span>=<span class="sig-default">1e-05</span>,
+        <span class="sig-arg">maxit</span>=<span class="sig-default">100</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Initialize new Graph-ESN.
+
+W_in and W_out are expected to have an additional column
+to deal with the bias term.
+
+Arguments:
+W_in        --  Input-to-reservoir matrix. (scipy array (Nr,Nu+1))
+W           --  Reservoir-to-reservoir matrix (scipy.array (Nr,Nr))
+W_out       --  Reservoir-to-output matrix (scipy.array (Ny,Nr+1))
+mapping_fun --  State mapping function f:(Nr x |V(g)|) -&gt; Nr
+output_act  --  Output unit's activation function. See: g_esn.functions
+                (callable)
+epsilon     --  Reservoir convergence threshold (real).
+maxit       --  Reservoir maximum iteration number (int).
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.check">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Verify if internal matrices are well shaped.</p>
+  <p>Return a boolean value.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="encode"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">encode</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">graph</span>,
+        <span class="sig-arg">input_label</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.encode">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Perform the encoding of given graph. 
+Return the internal state representation x \in (|V(g)| x Nr) as a 
+list of arrays.
+
+How it works:
+    - Start from x=0.
+    - For each vertex v compute: 
+        x_t(v) = tanh( W_in u(v) + \sum_{w \in N(v)} W x_{t-1}(w) ).
+    - Stop when 
+        ||x_t - x_{t-1}|| &lt; epsilon 
+      for each vertex or after a fixed number of iterations.
+
+Note: no bias is needed in the input label. A bias term (+1) is added 
+during the encoding process.
+
+Arguments:
+graph       --  Input Graph.
+input_label --  Name of the attribute storing the input label.
+                Input label must be a scipy.array shaped (Nu,). (string) 
+
+Return:
+Internal representation of the graph (scipy.array (|V(g)|,Nr)).
+
+Exceptions:
+Raise an error if the encoding doesn't converge (i.e. after 'maxit'
+iterations).
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_check_convergence"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_check_convergence</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">curr_x</span>,
+        <span class="sig-arg">next_x</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._check_convergence">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Check if the encoding can be stopped.
+
+Encoding is stopped when for each vertex v in V(g):
+
+    || x_{t}(v) - x_{t-1}(v) || &lt;= epsilon
+
+Return: True if the encoding can be stopped. (boolean)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_compute_Wu"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_compute_Wu</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">graph</span>,
+        <span class="sig-arg">input_label</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._compute_Wu">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compute ( W_in u(v) ) for each vertex 'v' in the graph. A bias is 
+  added to input label.</p>
+  <p>Return: Obtained matrix (|V|,Nr)</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_compute_Wx"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_compute_Wx</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">graph</span>,
+        <span class="sig-arg">x</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._compute_Wx">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compute ( \sum_{w \in N(v)} \hat{W} x_{t-1}(w) ) for each vertex 'v' 
+  in the graph.</p>
+  <p>Arguments: graph   --  Input graph (g_esn.graph.Graph) x       --  
+  Current internal representation, i.e. x_{t-1} (|V|,Nr)</p>
+  <p>Return: Obtained matrix (|V|,Nr)</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_activations"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_activations</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">graph</span>,
+        <span class="sig-arg">input_label</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.get_activations">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Let given graph to run thru the reservoir and return computed 
+  activations.</p>
+  <p>Returned encoding is evaluated after the state-mapping-function has 
+  been applied so are intented to be the input for the readout.</p>
+  <p>Arguments: graph       --  Input graph (Graph) input_label --  Name of
+  the attribute storing the input label.</p>
+  <p>Return: Activations values (scipy.array (Nr,)).</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="evaluate"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">evaluate</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">graph</span>,
+        <span class="sig-arg">input_label</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN.evaluate">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Apply the model to given graph. Return evaluated output value.</p>
+  <p>Arguments: graph       --  Input graph (Graph) input_label --  Name of
+  the attribute storing the input label.</p>
+  <p>Return: Real output values (scipy array (Ny,)).</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_add_bias"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_add_bias</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">v</span>,
+        <span class="sig-arg">val</span>=<span class="sig-default">1.0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._add_bias">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Concatenate a bias term to given vector.</p>
+  <p>Arguments: v   --  Input vector (Scipy.array) val --  Bias value 
+  (float)</p>
+  <p>Return: New modified vector.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_extract_key"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_extract_key</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.graph_esn-pysrc.html#GraphESN._extract_key">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return a keyword identifying given parameters (both named or not).</p>
+  <p>This is a support function to implement the memoizing procedure.</p>
+  <p>Return: A tuple that can be used as dictionary keyword.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== PROPERTY DETAILS ==================== -->
+<a name="section-PropertyDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Property Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-PropertyDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="W_in"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">W_in</h3>
+  <p>Input to reservoir matrix. (Nr, Nu+1)</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W_in(<span class="summary-sig-arg">self</span>)</span>
+        - Input to reservoir matrix.
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W_in(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W_in(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="W"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">W</h3>
+  <p>Reservoir to reservoir matrix. (Nr, Nr)</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W(<span class="summary-sig-arg">self</span>)</span>
+        - Reservoir to reservoir matrix.
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="W_out"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">W_out</h3>
+  <p>Reservoir to output matrix. (Ny, Nr+1)</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W_out(<span class="summary-sig-arg">self</span>)</span>
+        - Reservoir to output matrix.
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W_out(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.W_out(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="map_fun"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">map_fun</h3>
+  <p>State Mapping Function.</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.map_fun(<span class="summary-sig-arg">self</span>)</span>
+        - State Mapping Function.
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.map_fun(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.map_fun(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="out_act"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">out_act</h3>
+  <p>Output Activation Function.</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.out_act(<span class="summary-sig-arg">self</span>)</span>
+        - Output Activation Function.
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.out_act(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.out_act(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="epsilon"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">epsilon</h3>
+  <p>Reservoir convergence threshold.</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.epsilon(<span class="summary-sig-arg">self</span>)</span>
+        - Reservoir convergence threshold.
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.epsilon(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.epsilon(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="maxit"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">maxit</h3>
+  <p>Maximum reservoir iterations.</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.maxit(<span class="summary-sig-arg">self</span>)</span>
+        - Maximum reservoir iterations.
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.maxit(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.maxit(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="memo_enc"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">memo_enc</h3>
+  <p>Use of memoizing for the 'encode' function</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.memo_enc(<span class="summary-sig-arg">self</span>)</span>
+        - Use of memoizing for the 'encode' function
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.memo_enc(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.memo_enc(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="memo_act"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">memo_act</h3>
+  <p>Use of memoizing for the 'get_activations' function</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.memo_act(<span class="summary-sig-arg">self</span>)</span>
+        - Use of memoizing for the 'get_activations' function
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.memo_act(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.memo_act(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="memo_eval"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">memo_eval</h3>
+  <p>Use of memoizing for the 'evaluate' function</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.memo_eval(<span class="summary-sig-arg">self</span>)</span>
+        - Use of memoizing for the 'evaluate' function
+    </dd>
+    <dt>Set Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.memo_eval(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span>
+    </dd>
+    <dt>Delete Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.memo_eval(<span class="summary-sig-arg">self</span>)</span>
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="Nu"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">Nu</h3>
+  <p>Input size</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.Nu(<span class="summary-sig-arg">self</span>)</span>
+        - Input size
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="Nr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">Nr</h3>
+  <p>Reservoir size</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.Nr(<span class="summary-sig-arg">self</span>)</span>
+        - Reservoir size
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="Ny"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">Ny</h3>
+  <p>Output size</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.Ny(<span class="summary-sig-arg">self</span>)</span>
+        - Output size
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="g_esn-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Mon Feb 27 12:53:23 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

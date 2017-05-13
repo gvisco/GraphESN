@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>g_esn.learning</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="g_esn-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="g_esn-module.html">Package&nbsp;g_esn</a> ::
+        Package&nbsp;learning
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="g_esn.learning-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PACKAGE DESCRIPTION ==================== -->
+<h1 class="epydoc">Package learning</h1><p class="nomargin-top"><span class="codelink"><a href="g_esn.learning-pysrc.html">source&nbsp;code</a></span></p>
+<p>Provide functions for models trainining.</p>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.learning-module.html#backprop" class="summary-sig-name">backprop</a>(<span class="summary-sig-arg">network</span>,
+        <span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">Target</span>,
+        <span class="summary-sig-arg">eta</span>=<span class="summary-sig-default">0.1</span>,
+        <span class="summary-sig-arg">momentum</span>=<span class="summary-sig-default">0.0</span>,
+        <span class="summary-sig-arg">threshold</span>=<span class="summary-sig-default">1e-05</span>,
+        <span class="summary-sig-arg">patience</span>=<span class="summary-sig-default">10</span>,
+        <span class="summary-sig-arg">maxit</span>=<span class="summary-sig-default">5000</span>,
+        <span class="summary-sig-arg">decay</span>=<span class="summary-sig-default">0.0</span>)</span><br />
+      Perform the iterative Least Mean Squares algorithm.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.learning-pysrc.html#backprop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.learning-module.html#least_squares" class="summary-sig-name">least_squares</a>(<span class="summary-sig-arg">network</span>,
+        <span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">Target</span>)</span><br />
+      Train given model by minimizing the sum of the squared residual errors.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.learning-pysrc.html#least_squares">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.learning-module.html#ridge_regression" class="summary-sig-name">ridge_regression</a>(<span class="summary-sig-arg">network</span>,
+        <span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">Target</span>,
+        <span class="summary-sig-arg">alpha</span>)</span><br />
+      Train given model using Ridge-Regression algorithm to solve the LMS 
+problem.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.learning-pysrc.html#ridge_regression">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="g_esn.learning-module.html#max_S" class="summary-sig-name">max_S</a>(<span class="summary-sig-arg">network</span>,
+        <span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">Errors</span>,
+        <span class="summary-sig-arg">eta</span>=<span class="summary-sig-default">0.1</span>,
+        <span class="summary-sig-arg">momentum</span>=<span class="summary-sig-default">0.0</span>,
+        <span class="summary-sig-arg">threshold</span>=<span class="summary-sig-default">1e-05</span>,
+        <span class="summary-sig-arg">patience</span>=<span class="summary-sig-default">10</span>,
+        <span class="summary-sig-arg">maxit</span>=<span class="summary-sig-default">5000</span>,
+        <span class="summary-sig-arg">decay</span>=<span class="summary-sig-default">0.0</span>)</span><br />
+      Train the readout weights matrix in order to maximize the correleation
+with the residual error of the base-network, S.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="g_esn.learning-pysrc.html#max_S">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'g_esn.learning'"><code class="variable-quote">'</code><code class="variable-string">g_esn.learning</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="backprop"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">backprop</span>(<span class="sig-arg">network</span>,
+        <span class="sig-arg">dataset</span>,
+        <span class="sig-arg">label</span>,
+        <span class="sig-arg">Target</span>,
+        <span class="sig-arg">eta</span>=<span class="sig-default">0.1</span>,
+        <span class="sig-arg">momentum</span>=<span class="sig-default">0.0</span>,
+        <span class="sig-arg">threshold</span>=<span class="sig-default">1e-05</span>,
+        <span class="sig-arg">patience</span>=<span class="sig-default">10</span>,
+        <span class="sig-arg">maxit</span>=<span class="sig-default">5000</span>,
+        <span class="sig-arg">decay</span>=<span class="sig-default">0.0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.learning-pysrc.html#backprop">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Perform the iterative Least Mean Squares algorithm.
+
+The algorithm performs a gradient descent to minimize the sum of the 
+squared errors.    
+
+Arguments:
+network     --  Model to be trained.
+dataset     --  Training-set (list of g_esn.graph.Graph)
+label       --  Name of the input label (string).
+Target      --  Target matrix (scipy.array (len(dataset), Ny))
+eta         --  Learning rate (real)
+momentum    --  Momentum (real)
+threshold   --  Minimum variation to consider the algorithm not converged 
+                yet (real).
+patience    --  Patience factor (int)
+maxit       --  Maximum iterations allowed (int)
+decay       --  Weight decay factor.
+
+Return:
+sq_error    --  Last squared error (real).
+epochs      --  Number of iteration performed (int).
+W           --  Obtained weights matrix (scipy.array (Ny, Nf))
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="least_squares"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">least_squares</span>(<span class="sig-arg">network</span>,
+        <span class="sig-arg">dataset</span>,
+        <span class="sig-arg">label</span>,
+        <span class="sig-arg">Target</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.learning-pysrc.html#least_squares">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Train given model by minimizing the sum of the squared residual errors.
+Find global minima by using the direct solution (uses Moore-Penrose 
+pseudoinverse.
+
+Arguments:
+network --  GraphESN to train.
+dataset --  Training-set. (list of g_esn.graph.Graph)
+label   --  Attribute name of the input label. (string)
+Target  --  Target values matrix. (scipy.array (Ns,Ny))
+
+Return:
+Assuming Ns the number of input samples/pattern, Nf the number of features
+(bias included) for each input and Ny the output dimension:
+Input   --  Input matrix (Ns, Nf)
+Target  --  Inverted target values (Ns, Ny)
+W       --  Weights matrix (Nf, Ny). 
+            Warning: W.T is the actual weights matrix used by a GraphESN.
+
+----------
+How it works:
+Let 'Ns' be the number of samples in the dataset, 'Nf' the number of
+features excracted (e.g. by the reservoir) for each sample, including a bias 
+term, and 'Ny' the number of outputs.
+Then output weights are calculated as
+    
+    W = (pseudoinverse(Input) * network.out_act.inv(Target)).T
+
+where:
+    Input   : contains the all inputs (Ns, Nf)
+    Target  : contains target values (Ns, Ny)
+    W.T     : weights matrix (Ny, Nf)
+    
+Inverse of the output activation function is applied to target values, in 
+order to properly fit the output. Thus the network is espected to have an 
+invertible output activation function and target values are expected to
+properly fall into the function's range.
+(see also g_esn.functions.ActivationFunction)    
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="ridge_regression"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ridge_regression</span>(<span class="sig-arg">network</span>,
+        <span class="sig-arg">dataset</span>,
+        <span class="sig-arg">label</span>,
+        <span class="sig-arg">Target</span>,
+        <span class="sig-arg">alpha</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.learning-pysrc.html#ridge_regression">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Train given model using Ridge-Regression algorithm to solve the LMS 
+problem.   
+
+Arguments:
+network --  GraphESN to train.
+dataset --  Training-set. (list of g_esn.graph.Graph)
+label   --  Attribute name of the input label. (string)
+Target  --  Target values matrix. (scipy.array (Ns, Ny))
+alpha   --  Ridge-regression coefficient (see below). (real)
+
+Return:
+Assuming Ns the number of input samples/pattern, Nf the number of features
+(bias included) for each input and Ny the output dimension:
+Input   --  Input matrix (Ns, Nf).
+Target  --  Inverted target values (Ns, Ny)
+W       --  Weights matrix (Nf, Ny). 
+            Warning: W.T is the actual weights matrix used by a GraphESN.
+
+----------
+How it works (see [1]):
+Let 'Ns' be the number of samples in the dataset, 'Nf' the number of
+features excracted (e.g. by the reservoir) for each sample, including a bias 
+term, and 'Ny' the number of outputs.
+Then output weights are calculated as
+
+    W = ((Input^T Input + lpha I)^-1 Input^T out_act.inv(Target)).T
+
+where:
+    Input   : contains all inputs (Ns, Nf)
+    Target  : contains target values (Ns, Ny)
+    W.T     : weights matrix (Ny, Nf)
+
+Inverse of the output activation function is applied to target values, in 
+order to properly fit the output. Thus the network is espected to have an 
+invertible output activation function and target values are expected to
+properly fall into the function's range.
+(see also g_esn.functions.ActivationFunction)
+
+----------
+[1] T. Hastie, R. Tibshirani, J. H. Friedman. The Elements of Statistical
+    Learning. Springer-Verlag, 2001.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="max_S"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">max_S</span>(<span class="sig-arg">network</span>,
+        <span class="sig-arg">dataset</span>,
+        <span class="sig-arg">label</span>,
+        <span class="sig-arg">Errors</span>,
+        <span class="sig-arg">eta</span>=<span class="sig-default">0.1</span>,
+        <span class="sig-arg">momentum</span>=<span class="sig-default">0.0</span>,
+        <span class="sig-arg">threshold</span>=<span class="sig-default">1e-05</span>,
+        <span class="sig-arg">patience</span>=<span class="sig-default">10</span>,
+        <span class="sig-arg">maxit</span>=<span class="sig-default">5000</span>,
+        <span class="sig-arg">decay</span>=<span class="sig-default">0.0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="g_esn.learning-pysrc.html#max_S">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Train the readout weights matrix in order to maximize the correleation
+with the residual error of the base-network, S.
+
+S = \sum_{o \in out} | \sum_{g \in D}(z(g) - ar{z})(e_o(g) - ar{e}_o) |
+
+Maximization is acheived by performing a gradient ascent as described 
+in [1]. In order to evaluate the gradient, if the activation function is not
+None, then is to be invertible so is expected to have a 'der' method.
+
+Arguments:
+network     --  GraphESN to train.
+dataset     --  Training-set. (list of g_esn.graph.Graph)
+label       --  Attribute name of the input label. (string)
+Errors      --  Residual errors (scipy.array (Ns, Ny))
+eta         --  Gradient ascent step size. (real) 
+momentum    --  Momentum scaling in weights update. (real)
+threshold   --  Stop learning when the percentage increase of S (gain) 
+                is lower than given threshold. (real in [0,1]) 
+patience    --  A 'patience' parameter. Each time the best S value overcome
+                the threshold, the maximization process is allowed to
+                perform a number of extra epochs equals to this value.
+maxit       --  Maximum number of iterations allowed to maximize S. (int)
+decay       --  Weight decay factor (real).
+
+Return:
+S   --  Correlation value: S. (real number).
+z   --  Outputs, scipy.array (Ns, 1).
+it  --  Number of performed iterations (int).
+
+----------
+[1] Scott E. Fahlman and Christian Lebiere. The cascade-correlation learning
+    architecture. In Advances in Neural Information Processing Systems 2, 
+    pages 524-532. Morgan Kaufmann, 1990.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="g_esn-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Mon Feb 27 12:53:23 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
