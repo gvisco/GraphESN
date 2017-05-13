@@ -3,7 +3,6 @@ The repository contains the code I wrote for my master thesis "Constructive Rese
 
 ## Repository Content
 - `g_esn`: The source code package implementing the GraphESN and the Constructive-GraphESN models in Python 2.6.
-- `html`: HTML documentation straight from the docstring. See index.html.
 - `example`: A simple tutorial showing how to use the g_esn library. To run the code type `python tutorial.py`. It requires g_esn and it's dependencies to be installed and availables for the Python interpreter.
 
 ## Bonus (Data Viewer)
