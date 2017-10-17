@@ -1,5 +1,5 @@
 # GraphESN
-The repository contains the code I wrote for my master thesis "Constructive Reservoir Computing neural models for structured domains" (available [here](https://etd.adm.unipi.it/t/etd-01232012-162826/) in italian). The thesis is about a new set of neural models that apply the reservoir computing approach to problems where the input data can be represented as a graph.
+The repository contains the code I wrote for my master thesis "Constructive Reservoir Computing Neural Models for Structured Domains" (available [here](https://etd.adm.unipi.it/t/etd-01232012-162826/) in Italian). The thesis is about a new set of neural models that apply the [Reservoir Computing](https://en.wikipedia.org/wiki/Reservoir_computing) to tackle problems where the input data can be represented as a graph.
 
 ## Repository Content
 - `g_esn`: The source code package implementing the GraphESN and the Constructive-GraphESN models in Python 2.6.
@@ -16,7 +16,7 @@ To launch the application, type: `python data_viewer`.
 To open a dataset choose `File > Open` and select an SDF or GPH file.
 In order to load a Progol dataset, ipython must be installed:
 - Launch the program
-- Use the binded ipython console to load the dataset (see `pl_parser` documentation).
+- Use the bound ipython console to load the dataset (see `pl_parser` documentation).
   ```files = ['atom_bond.pl', 'logp.pl', 'lumo.pl', 'ind1.pl', 'inda.pl', 'log_mutag.pl']
      dset = pl_parser.parse(*files)
      ```
